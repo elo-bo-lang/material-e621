@@ -1,6 +1,7 @@
 export const handler = async (event) => {
-  const imgPath = event.path.replace('/img/', 'data/');
-  const targetUrl = `https://static1.e621.net/${imgPath}`;
+  // Path: /img/static1/data/xxx.jpg → https://static1.e621.net/data/xxx.jpg
+  const path = event.path.replace('/img/', '');
+  const targetUrl = `https://${path}`;
   
   try {
     const response = await fetch(targetUrl, {
