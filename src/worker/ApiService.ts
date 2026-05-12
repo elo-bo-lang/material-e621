@@ -51,12 +51,10 @@ export class ApiService {
     ).posts;
 
     return posts.map<EnhancedPost>((post) => {
-      // Rewrite image URLs through our proxy
       const file = post.file;
-      const proxyFile = file?.url ? {
-        ...file,
-        url: file.url.replace(/https:\/\/(static\d+\.e621\.net)\//, (_, domain) => \`/img/\${domain}/\`),
-      } : file;
+      const oldUrl = file && file.url || '';
+      const proxyUrl = oldUrl.replace('https://', '/img/');
+      const proxyFile = proxyUrl !== oldUrl ? { ...file, url: proxyUrl } : file;
       
       return {
         ...post,
