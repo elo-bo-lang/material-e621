@@ -51,14 +51,17 @@ export class ApiService {
     ).posts;
 
     return posts.map<EnhancedPost>((post) => {
-      const file = post.file;
-      const oldUrl = file && file.url || '';
-      const proxyUrl = oldUrl.replace('https://', '/img/');
-      const proxyFile = proxyUrl !== oldUrl ? { ...file, url: proxyUrl } : file;
+      const proxyUrl = (u) => u ? u.replace('https://', '/img/') : u;
+      
+      const file = post.file ? { ...post.file, url: proxyUrl(post.file.url) } : post.file;
+      const preview = post.preview ? { ...post.preview, url: proxyUrl(post.preview.url) } : post.preview;
+      const sample = post.sample ? { ...post.sample, url: proxyUrl(post.sample.url) } : post.sample;
       
       return {
         ...post,
-        file: proxyFile,
+        file,
+        preview,
+        sample,
         score: {
           ...post.score,
           down: Math.abs(post.score.down),
