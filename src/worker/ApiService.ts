@@ -50,18 +50,14 @@ export class ApiService {
       })
     ).posts;
 
-    return posts.map<EnhancedPost>((post) => {
-      const proxyUrl = (u: string | undefined): string | undefined => u ? u.replace('https://', '/img/') : u;
-      
-      const file = post.file ? { ...post.file, url: proxyUrl(post.file.url) } : post.file;
-      const preview = post.preview ? { ...post.preview, url: proxyUrl(post.preview.url) } : post.preview;
-      const sample = post.sample ? { ...post.sample, url: proxyUrl(post.sample.url) } : post.sample;
+    return posts.map<EnhancedPost>((post: any) => {
+      const rewrite = (url: string) => url.replace('https://', '/img/');
+      if (post.file && post.file.url) post.file.url = rewrite(post.file.url);
+      if (post.preview && post.preview.url) post.preview.url = rewrite(post.preview.url);
+      if (post.sample && post.sample.url) post.sample.url = rewrite(post.sample.url);
       
       return {
         ...post,
-        file,
-        preview,
-        sample,
         score: {
           ...post.score,
           down: Math.abs(post.score.down),
@@ -70,7 +66,7 @@ export class ApiService {
           isBlacklisted: isPostBlacklisted(post, args.blacklist || []),
           pageNumber: args.page,
         },
-      };
+      } as EnhancedPost;
     });
   }
 
