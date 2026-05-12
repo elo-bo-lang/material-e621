@@ -1,6 +1,11 @@
 export const handler = async (event) => {
-  const path = event.path.replace('/.netlify/functions/proxy/', '/api/');
-  const targetUrl = `https://e621.net/${path}${event.queryStringParameters ? '?' + new URLSearchParams(event.queryStringParameters) : ''}`;
+  // The path is /api/posts.json, strip /api/ prefix
+  const apiPath = event.path.replace('/api/', '');
+  // Forward query parameters
+  const params = event.queryStringParameters 
+    ? '?' + new URLSearchParams(event.queryStringParameters).toString()
+    : '';
+  const targetUrl = `https://e621.net/${apiPath}${params}`;
   
   try {
     const response = await fetch(targetUrl, {
