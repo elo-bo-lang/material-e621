@@ -3,7 +3,15 @@
   publish = "dist"
 
 [[redirects]]
+  [[redirects]]
   from = "/api/*"
+  to = "/.netlify/functions/proxy/:splat"
+  status = 200
+
+[[redirects]]
+  from = "/img/*"
+  to = "/.netlify/functions/image-proxy/:splat"
+  status = 200
   to = "/.netlify/functions/proxy/:splat"
   status = 200
 
