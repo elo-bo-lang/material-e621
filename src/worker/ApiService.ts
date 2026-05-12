@@ -3,7 +3,7 @@
       const file = post.file;
       const proxyFile = file?.url ? {
         ...file,
-        url: file.url.replace(/https:\/\/(static\d+\.e621\.net)\//, (_, domain) => \`/img/\${domain}/\`),
+        url: file.url.replace(/https:\/\/(static\d+\.e621\.net)\//, (_, domain) => `/img/${domain}/`),
       } : file;
       
       return {
