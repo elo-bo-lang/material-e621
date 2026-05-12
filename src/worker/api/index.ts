@@ -19,7 +19,8 @@ const version = getGitInfo()[0]?.hash?.substring(0, 7) ?? "0.0.0";
 const clientHeader = `Material e621/${version} (by Avoonix on e621)`;
 
 const buildUrl = (baseUrl: string, path: string, params: Record<string, any> = {}) => {
-  const url = new URL(`${baseUrl}${path}`);
+  const fullUrl = baseUrl.startsWith('http') ? `${baseUrl}${path}` : `${window.location.origin}${baseUrl}${path}`;
+  const url = new URL(fullUrl);
   Object.entries(params).forEach(([key, value]) => {
     if (value !== undefined && value !== null) {
       url.searchParams.append(key, value.toString());
