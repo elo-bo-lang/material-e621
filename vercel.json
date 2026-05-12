@@ -1,35 +1,23 @@
 {
-  "redirects": [
-    { "source": "/", "destination": "https://material-e621.avoonix.com/", "statusCode": 301 }
-  ],
-  "rewrites": [{ "source": "/old", "destination": "/index.html" }],
-  "headers": [
-    {
-      "source": "/assets/(.*)",
-      "headers": [
-        {
-          "key": "cache-control",
-          "value": "public, max-age=7776000"
-        }
-      ]
-    },
-    {
-      "source": "/static/(.*)",
-      "headers": [
-        {
-          "key": "cache-control",
-          "value": "public, max-age=7776000"
-        }
-      ]
-    },
-    {
-      "source": "/(.*)",
-      "headers": [
-        {
-          "key": "Link",
-          "value": "<https://material-e621.avoonix.com/$1>; rel=\"canonical\""
-        }
-      ]
-    }
-  ]
-}
+       "rewrites": [{ "source": "/(.)", "destination": "/index.html" }],
+       "headers": [
+         {
+           "source": "/assets/(.)",
+           "headers": [
+             {
+               "key": "cache-control",
+               "value": "public, max-age=7776000"
+             }
+           ]
+         },
+         {
+           "source": "/static/(.*)",
+           "headers": [
+             {
+               "key": "cache-control",
+               "value": "public, max-age=7776000"
+             }
+           ]
+         }
+       ]
+     }
