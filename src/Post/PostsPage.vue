@@ -104,7 +104,7 @@ const {
       blacklist: toRaw(blacklist.tags),
       blacklistMode: toRaw(blacklist.mode),
       auth: toRaw(account.auth),
-      baseUrl: toRaw(urlStore.e621Url),
+      baseUrl: toRaw(urlStore.proxyUrl),
     }));
     return posts;
   },
