@@ -51,7 +51,7 @@ export class ApiService {
     ).posts;
 
     return posts.map<EnhancedPost>((post) => {
-      const proxyUrl = (u) => u ? u.replace('https://', '/img/') : u;
+      const proxyUrl = (u: string | undefined): string | undefined => u ? u.replace('https://', '/img/') : u;
       
       const file = post.file ? { ...post.file, url: proxyUrl(post.file.url) } : post.file;
       const preview = post.preview ? { ...post.preview, url: proxyUrl(post.preview.url) } : post.preview;
